@@ -4,10 +4,9 @@ import anitopy
 anitopy_options = {'allowed_delimiters': ' '}
 
 # Get a list of all the mkv video files
-sp.run("dir /b | grep .mkv > videos.txt", shell=True)
-with open("videos.txt", "r") as f:
-	videos = f.readlines()
-f.close()
+dir_grep = sp.run("dir /b | grep .mkv", stdout=sp.PIPE, shell=True, universal_newlines=True)
+videos = dir_grep.stdout.strip().split('\n')
+#print(videos)
 
 script = open("convert.bat", "w")
 for v in videos:
